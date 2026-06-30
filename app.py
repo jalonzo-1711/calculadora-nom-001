@@ -131,7 +131,7 @@ with st.sidebar:
     
     if tipo_corriente == "Corriente Alterna (AC)":
         tipo_sistema = st.selectbox("Fases del Sistema", ["Monofásico (1F)", "Bifásico (2F)", "Trifásico (3F)"], index=2)
-        fp = st.number_input("Factor de Potencia (FP)", min_value=0.1, max_value=1.0, value=0.90, step=0.01)
+        fp = st.number_input("Factor de Potencia (FP)", min_value=0.1, max_value=1.0, value=1.0, step=0.1)
         fases_activas_base = 3 if "Trifásico" in tipo_sistema else 2
     else:
         tipo_sistema = "Corriente Directa (DC)"
@@ -141,10 +141,10 @@ with st.sidebar:
     voltaje = st.number_input("Voltaje del Sistema (V)", min_value=12, value=220, step=10)
 
     st.header("2. Datos de la Carga")
-    metodo_entrada = st.selectbox("Ingreso de la Carga en:", ["Corriente Nominal (A)", "Potencia Aparente (kVA)"])
+    metodo_entrada = st.selectbox("Ingreso de la Carga en:", ["Potencia Aparente (kVA)", "Corriente Nominal (A)"])
     
     if metodo_entrada == "Potencia Aparente (kVA)":
-        potencia_kva = st.number_input("Potencia (kVA)", min_value=0.1, value=50.0)
+        potencia_kva = st.number_input("Potencia (kVA)", min_value=0.1, value=100.0)
         if "Trifásico" in tipo_sistema:
             corriente = (potencia_kva * 1000) / (math.sqrt(3) * voltaje)
         else:
@@ -156,13 +156,13 @@ with st.sidebar:
     factor_utilizacion = st.selectbox("Factor de Utilización", [1.0, 0.8], index=1, help="Usa 0.8 para cargas continuas (>3h)")
     
     st.header("3. Caída de Tensión")
-    distancia = st.number_input("Longitud del Circuito (Metros)", min_value=1.0, value=30.0, step=5.0)
+    distancia = st.number_input("Longitud del Circuito (Metros)", min_value=1.0, value=10.0, step=1.0)
     caida_permitida_pct = st.number_input("Caída Máxima Permisible (%)", min_value=0.5, max_value=10.0, value=3.0, step=0.5)
     
     st.header("4. Instalación")
-    tipo_inst = st.selectbox("Canalización", ["Charola / Tubo Conduit", "Al Aire Libre"])
-    temp_aislante = st.selectbox("Aislamiento", ["60°C", "75°C", "90°C"], index=1)
-    temp_ambiente_str = st.selectbox("Temp. Ambiente", list(factores_temp_ambiente.keys()), index=2)
+    tipo_inst = st.selectbox("Canalización", ["Ducto/Sobre mas cable", "Al Aire Libre"])
+    temp_aislante = st.selectbox("Aislamiento", ["60°C", "75°C", "90°C"], index=3)
+    temp_ambiente_str = st.selectbox("Temp. Ambiente", list(factores_temp_ambiente.keys()), index=1)
     misma_canalizacion = st.checkbox("Agrupar cables paralelos", value=True)
     
     st.header("5. Límites")
