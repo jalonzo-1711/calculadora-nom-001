@@ -161,8 +161,8 @@ with st.sidebar:
     
     st.header("4. Instalación")
     tipo_inst = st.selectbox("Canalización", ["Ducto/Sobre mas cable", "Al Aire Libre"])
-    temp_aislante = st.selectbox("Aislamiento", ["60°C", "75°C", "90°C"], index=3)
-    temp_ambiente_str = st.selectbox("Temp. Ambiente", list(factores_temp_ambiente.keys()), index=1)
+    temp_aislante = st.selectbox("Aislamiento", ["60°C", "75°C", "90°C"], index=1)
+    temp_ambiente_str = st.selectbox("Temp. Ambiente", list(factores_temp_ambiente.keys()), index=2)
     misma_canalizacion = st.checkbox("Agrupar cables paralelos", value=True)
     
     st.header("5. Límites")
